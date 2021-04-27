@@ -4,14 +4,23 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      borderColor: (theme) => ({
+        ...theme("colors"),
+        nevigation: "#EF9771",
+      }),
       backgroundImage: theme => ({
-        'header': "url('/public/u75.png')",
+        'header': "url('/u75.png')",
+        banner: "url('/banner.png')",
+
       }),
       textColor:{
-        purple: '#07367D'
+        purple: '#07367D',
+        nevigation: "#EA5433",
       },
       backgroundColor:{
-        gray: '#ECEDEF'
+        gray: '#ECEDEF',
+        nevigation: "#F6ECD4",
+        greenSelf: "#A8F2D0"
       }
     },
   },

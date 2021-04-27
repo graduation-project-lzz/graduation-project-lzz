@@ -1,11 +1,21 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import Image from 'next/image';
+import Link from 'next/link';
+import useSWR, {SWRResponse} from 'swr';
+import Card from './components/card';
+import {useState} from 'react';
+import {useLists} from './components/useLists';
+
 
 export default function Home() {
+
+
+    const {data, error,Lists} = useLists();
+
     return (
-        <div className=" border lg-w-9/12 ">
-            <header className="flex  justify-between m-4">
+        <div className=" border lg-w-9/12 max-w-screen-lg m-auto">
+            <header className="flex  justify-between m-4    ">
                 <div className="text-purple">
                     <Image src={'/u89.png'} width={400} height={20}/>
                     {/*广州市人力资源与社会保障局*/}
@@ -24,51 +34,63 @@ export default function Home() {
             bg-gray
 
             ">
-                <section className="border bg-gradient-to-r">
-                    <div className="w-full bg-bottom">
-                        <Image src="/u75.png" height={200} width={800} layout="responsive" className="bg-center z-0"
-                               objectPosition="inherit"/>
+                <section className="border bg-header bg-cover h-40 md:w-full   ">
+                    <div className="text-2xl">
+                        广州人社 为您解决事项咨询最后一公里问题
+                    </div>
+                    <div className="text-sm m-2">
+                        广州人社为您提供866项事项咨询，打造一站式事项咨询平台
+                    </div>
+                    <div className="flex flex-row">
+                        <Link href={{pathname: '/nevigationPage', query: {id: '001'}}}>
+                            <button
+                                type="button"
+                                className="w-32 h-8 text-sm text-white bg-blue-800 m-1"
+                            >
+                                区级事项
+                            </button>
+                        </Link>
+                        <Link href={{pathname: '/nevigationPage', query: {id: '257'}}}>
+                            <button
+                                type="button"
+                                className="w-32 h-8 text-sm text-white bg-blue-800 m-1"
+                            >
+                                市级事项
+                            </button>
+                        </Link>
                     </div>
                 </section>
-                <section className="flex justify-center text-center   text-base space-x-4 my-4">
-                    <div>个人业务</div>
-                    <div>法人业务</div>
-                    <div>机关事业单位</div>
+                <section className="flex justify-center text-center   text-base ">
+                    <div className="grid grid-cols-2 self-center divide-x divide-gray-400 m-2 p-1">
+                        <div
+                            id="dt"
+                            className="w-24 text-center font-bold text-blue-600 cursor-pointer"
+                        >
+                            区级
+                        </div>
+                        <div
+                            id="mcy"
+                            className="w-24 text-center cursor-pointer"
+
+                        >
+                            市级
+                        </div>
+                    </div>
                 </section>
                 <section className="flex justify-center text-center items-start  flex-wrap border "
                 >
-                    <div className={styles.card}>
-                        <span>
-                            <Image src={'/u46.png'} height={60} width={60}/>
-                        </span>
-                        人才服务
-                    </div>
-                    <div className={styles.card}>
-                        <span>
-                            <Image src={'/u46.png'} height={60} width={60}/>
-                        </span>
-                        创新创业
-                    </div>
-                    <div className={styles.card}>
-                        <span>
-                            <Image src={'/u46.png'} height={60} width={60}/>
-                        </span>
-                        就业帮扶
-                    </div>
-                    <div className={styles.card}><span>
-                            <Image src={'/u46.png'} height={60} width={60}/>
-                        </span>用工招聘
-                    </div>
-                    <div className={styles.card}><span>
-                            <Image src={'/u46.png'} height={60} width={60}/>
-                        </span>劳动保障
-                    </div>
-                    <div className={styles.card}><span>
-                            <Image src={'/u46.png'} height={60} width={60}/>
-                        </span>劳动保障
-                    </div>
-                    {/*<div>社会保险</div>*/}
-                    {/*<div>人事考试</div>*/}
+                    {
+                        Lists?.children?.map(item => {
+                            return (
+                                <Card
+                                    name={item.name}
+                                    key={item.id}
+                                />
+                            );
+                        })
+                    }
+
+
                 </section>
 
 
